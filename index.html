@@ -4,12 +4,193 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exblox Studio</title>
+  <meta name="description" content="Exblox Studio — indie game developer. Home of SteelGrid and more.">
+  <link rel="icon" type="image/png" href="games/steelgrid/img/icon_512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a0e1a;
+      --bg-card: #1a2235;
+      --cyan: #00e5ff;
+      --cyan-glow: rgba(0, 229, 255, 0.25);
+      --steel: #4a6a8a;
+      --text-primary: #e8edf5;
+      --text-secondary: #8a9bb5;
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Exo 2', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(74, 106, 138, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 106, 138, 0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    .studio {
+      text-align: center;
+      max-width: 600px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .studio-logo {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .studio-logo .accent { color: var(--cyan); }
+    .studio-tagline {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      margin-bottom: 3.5rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin: 0 auto 2.5rem;
+      opacity: 0.4;
+    }
+
+    .games-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--steel);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Game card */
+    .game-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid rgba(74, 106, 138, 0.15);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+      text-align: left;
+    }
+    .game-card:hover {
+      border-color: rgba(0, 229, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.4), 0 0 20px var(--cyan-glow);
+    }
+    .game-card-icon {
+      width: 72px; height: 72px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .game-card-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .game-card-info { flex: 1; }
+    .game-card-info h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+    .game-card-info p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .game-card-arrow {
+      color: var(--steel);
+      font-size: 1.3rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .game-card:hover .game-card-arrow {
+      color: var(--cyan);
+      transform: translateX(3px);
+    }
+
+    .contact {
+      margin-top: 3.5rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+    .contact a {
+      color: var(--cyan);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+      transition: border-color 0.2s;
+    }
+    .contact a:hover { border-color: var(--cyan); }
+
+    .footer-copy {
+      margin-top: 1.5rem;
+      color: rgba(138, 155, 181, 0.35);
+      font-size: 0.75rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Exblox Studio</h1>
-  <p>Mobile games by Exblox Studio.</p>
-  <ul>
-    <li><a href="/games/steelgrid/privacy-policy.html">SteelGrid – Privacy Policy</a></li>
-  </ul>
+
+  <div class="studio">
+    <h1 class="studio-logo">Exblox <span class="accent">Studio</span></h1>
+    <p class="studio-tagline">Indie game development</p>
+
+    <div class="divider"></div>
+
+    <p class="games-label">Our Games</p>
+
+    <a href="games/steelgrid/" class="game-card">
+      <div class="game-card-icon">
+        <img src="games/steelgrid/img/icon_512.png" alt="SteelGrid">
+      </div>
+      <div class="game-card-info">
+        <h2>SteelGrid</h2>
+        <p>Drop blocks, clear lines, beat your high score. A sleek block puzzle with metallic style.</p>
+      </div>
+      <span class="game-card-arrow">→</span>
+    </a>
+
+    <p class="contact">Questions? <a href="mailto:exbloxstudio@gmail.com">exbloxstudio@gmail.com</a></p>
+    <p class="footer-copy">&copy; 2026 Exblox Studio</p>
+  </div>
+
 </body>
 </html>

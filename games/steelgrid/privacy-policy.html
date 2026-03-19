@@ -4,54 +4,266 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy – SteelGrid</title>
+  <link rel="icon" type="image/png" href="img/icon_512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
-    h1 { color: #111; }
-    h2 { margin-top: 30px; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a0e1a;
+      --bg-surface: #111827;
+      --bg-card: #1a2235;
+      --cyan: #00e5ff;
+      --cyan-dim: #00b8d4;
+      --cyan-glow: rgba(0, 229, 255, 0.25);
+      --steel: #4a6a8a;
+      --text-primary: #e8edf5;
+      --text-secondary: #8a9bb5;
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Exo 2', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    nav {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.08);
+      background: rgba(10, 14, 26, 0.95);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
+    .nav-brand span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    nav a.back {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--cyan); }
+
+    /* Content */
+    .policy-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .policy-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(74, 106, 138, 0.15);
+    }
+    .policy-header h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .policy-header .updated {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+    .policy-header .updated strong { color: var(--cyan); font-weight: 500; }
+
+    .policy-intro {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .policy-section {
+      margin-bottom: 2.5rem;
+    }
+    .policy-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--cyan);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .policy-section h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      font-size: 0.8rem;
+      color: var(--cyan);
+    }
+    .policy-section p, .policy-section li {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .policy-section p { margin-bottom: 0.75rem; }
+    .policy-section ul {
+      list-style: none;
+      margin: 0.75rem 0;
+    }
+    .policy-section li {
+      padding: 0.3rem 0 0.3rem 1.5rem;
+      position: relative;
+    }
+    .policy-section li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.75rem;
+      width: 6px; height: 6px;
+      border-radius: 2px;
+      background: var(--steel);
+    }
+    .policy-section a {
+      color: var(--cyan-dim);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 184, 212, 0.3);
+      transition: border-color 0.2s;
+    }
+    .policy-section a:hover { border-color: var(--cyan); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(74, 106, 138, 0.1);
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy {
+      color: rgba(138, 155, 181, 0.4);
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .policy-wrap { padding: 2rem 1.25rem 4rem; }
+    }
   </style>
 </head>
 <body>
-  <h1>Privacy Policy – SteelGrid</h1>
-  <p><strong>Last updated:</strong> March 19, 2026</p>
-  <p>SteelGrid is a free mobile puzzle game developed by Exblox Studio. This Privacy Policy explains how we handle information when you use our app.</p>
- 
-  <h2>1. Data We Collect</h2>
-  <p>We do not directly collect or store any personal data. However, our app uses third-party services that may collect data as described below.</p>
- 
-  <h2>2. Advertising (Google AdMob)</h2>
-  <p>We use Google AdMob to display advertisements. AdMob may collect device identifiers, IP address, and usage data to serve personalized or non-personalized ads depending on your consent. For more information, see <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
- 
-  <h2>3. Analytics (TelemetryDeck)</h2>
-  <p>We use TelemetryDeck to collect anonymous gameplay and usage data to help us improve the game experience. TelemetryDeck may collect the following information:</p>
-  <ul>
-    <li>Device information (device model, screen resolution, architecture, platform)</li>
-    <li>Operating system version</li>
-    <li>App version and build type</li>
-    <li>Language, region, and locale settings (derived from system settings, not GPS)</li>
-    <li>Accessibility preferences (e.g. reduce motion, bold text, color scheme)</li>
-    <li>Session data (session start, session end, session duration)</li>
-    <li>Retention metrics (first session date, number of days the app was used, total session count, average session duration)</li>
-    <li>Gameplay events (game start, game end, score, actions taken in-game)</li>
-    <li>Error reports (error type and category, no personal data included)</li>
-    <li>Ad interaction events (ad impressions, consent status)</li>
-  </ul>
-  <p>To identify unique devices, a randomly generated anonymous identifier is created and stored locally on your device. This identifier is double-hashed by TelemetryDeck before being stored on their servers and cannot be used to personally identify you. All collected data is anonymized. For more information, see <a href="https://telemetrydeck.com/privacy/">TelemetryDeck Privacy Policy</a>.</p>
- 
-  <h2>4. Consent (GDPR)</h2>
-  <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, you will be asked for your consent before personalized ads are shown. You can change your consent at any time in the app settings.</p>
- 
-  <h2>5. Data Retention</h2>
-  <p>Game progress and settings are stored locally on your device only. We do not have access to this data.</p>
- 
-  <h2>6. Children's Privacy</h2>
-  <p>SteelGrid is not specifically directed at children. While the game content is suitable for all ages (PEGI 3), the app is not designed, marketed, or intended for use by children under the age of 13.</p>
-  <p>We do not knowingly collect personal information from children under 13 (as defined by COPPA) or under 16 (as defined by GDPR) without verifiable parental consent. If we become aware that we have inadvertently collected personal data from a child without appropriate consent, we will take steps to delete that information promptly.</p>
-  <p>Advertising is served based on the user's consent status, not based on age. Parents and guardians are encouraged to supervise their children's use of the app and to contact us if they have any concerns.</p>
- 
-  <h2>7. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date.</p>
- 
-  <h2>8. Contact</h2>
-  <p>If you have any questions, contact us at: <a href="mailto:exbloxstudio@gmail.com">exbloxstudio@gmail.com</a></p>
+
+  <nav>
+    <a href="./" class="nav-brand">
+      <img src="img/icon_512.png" alt="SteelGrid">
+      <span>SteelGrid</span>
+    </a>
+    <a href="./" class="back">← Back to game</a>
+  </nav>
+
+  <div class="policy-wrap">
+    <div class="policy-header">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: <strong>March 19, 2026</strong></p>
+    </div>
+
+    <p class="policy-intro">
+      SteelGrid is a free mobile puzzle game developed by Exblox Studio. This Privacy Policy explains how we handle information when you use our app.
+    </p>
+
+    <div class="policy-section">
+      <h2><span class="num">1</span> Data We Collect</h2>
+      <p>We do not directly collect or store any personal data. However, our app uses third-party services that may collect data as described below.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">2</span> Advertising (Google AdMob)</h2>
+      <p>We use Google AdMob to display advertisements. AdMob may collect device identifiers, IP address, and usage data to serve personalized or non-personalized ads depending on your consent. For more information, see <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">3</span> Analytics (TelemetryDeck)</h2>
+      <p>We use TelemetryDeck to collect anonymous gameplay and usage data to help us improve the game experience. TelemetryDeck may collect the following information:</p>
+      <ul>
+        <li>Device information (device model, screen resolution, architecture, platform)</li>
+        <li>Operating system version</li>
+        <li>App version and build type</li>
+        <li>Language, region, and locale settings (derived from system settings, not GPS)</li>
+        <li>Accessibility preferences (e.g. reduce motion, bold text, color scheme)</li>
+        <li>Session data (session start, session end, session duration)</li>
+        <li>Retention metrics (first session date, number of days the app was used, total session count, average session duration)</li>
+        <li>Gameplay events (game start, game end, score, actions taken in-game)</li>
+        <li>Error reports (error type and category, no personal data included)</li>
+        <li>Ad interaction events (ad impressions, consent status)</li>
+      </ul>
+      <p>To identify unique devices, a randomly generated anonymous identifier is created and stored locally on your device. This identifier is double-hashed by TelemetryDeck before being stored on their servers and cannot be used to personally identify you. All collected data is anonymized. For more information, see <a href="https://telemetrydeck.com/privacy/">TelemetryDeck Privacy Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">4</span> Consent (GDPR)</h2>
+      <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, you will be asked for your consent before personalized ads are shown. You can change your consent at any time in the app settings.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">5</span> Data Retention</h2>
+      <p>Game progress and settings are stored locally on your device only. We do not have access to this data.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">6</span> Children's Privacy</h2>
+      <p>SteelGrid is not specifically directed at children. While the game content is suitable for all ages (PEGI 3), the app is not designed, marketed, or intended for use by children under the age of 13.</p>
+      <p>We do not knowingly collect personal information from children under 13 (as defined by COPPA) or under 16 (as defined by GDPR) without verifiable parental consent. If we become aware that we have inadvertently collected personal data from a child without appropriate consent, we will take steps to delete that information promptly.</p>
+      <p>Advertising is served based on the user's consent status, not based on age. Parents and guardians are encouraged to supervise their children's use of the app and to contact us if they have any concerns.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">7</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="num">8</span> Contact</h2>
+      <p>If you have any questions, contact us at: <a href="mailto:exbloxstudio@gmail.com">exbloxstudio@gmail.com</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="./">SteelGrid</a>
+      <a href="mailto:exbloxstudio@gmail.com">Contact</a>
+      <a href="/">Exblox Studio</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Exblox Studio. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

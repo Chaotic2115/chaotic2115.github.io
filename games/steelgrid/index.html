@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SteelGrid — Block Puzzle Game</title>
+  <meta name="description" content="Drop blocks, clear lines, beat your high score. A sleek block puzzle game with metallic style. Free on Google Play.">
+  <link rel="icon" type="image/png" href="img/icon_512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a0e1a;
+      --bg-surface: #111827;
+      --bg-card: #1a2235;
+      --cyan: #00e5ff;
+      --cyan-dim: #00b8d4;
+      --cyan-glow: rgba(0, 229, 255, 0.25);
+      --steel: #4a6a8a;
+      --steel-light: #6b8db5;
+      --text-primary: #e8edf5;
+      --text-secondary: #8a9bb5;
+      --purple-accent: #7c4dff;
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Exo 2', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Animated background ── */
+    .bg-stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-stars::before, .bg-stars::after {
+      content: '';
+      position: absolute;
+      width: 2px; height: 2px;
+      border-radius: 50%;
+      background: white;
+      box-shadow:
+        120px 40px 0 0 rgba(255,255,255,.3),
+        340px 120px 0 0 rgba(255,255,255,.15),
+        560px 80px 0 0 rgba(255,255,255,.25),
+        180px 300px 0 0 rgba(255,255,255,.2),
+        700px 220px 0 0 rgba(255,255,255,.1),
+        420px 400px 0 0 rgba(255,255,255,.3),
+        90px 500px 0 0 rgba(255,255,255,.15),
+        600px 550px 0 0 rgba(255,255,255,.2),
+        250px 650px 0 0 rgba(255,255,255,.25),
+        800px 350px 0 0 rgba(255,255,255,.1),
+        480px 150px 0 0 rgba(255,255,255,.2),
+        50px 200px 0 0 rgba(255,255,255,.15),
+        750px 480px 0 0 rgba(255,255,255,.3);
+      animation: drift 60s linear infinite;
+    }
+    .bg-stars::after {
+      width: 1px; height: 1px;
+      box-shadow:
+        200px 100px 0 0 rgba(255,255,255,.2),
+        450px 250px 0 0 rgba(255,255,255,.1),
+        100px 400px 0 0 rgba(255,255,255,.25),
+        650px 150px 0 0 rgba(255,255,255,.15),
+        300px 500px 0 0 rgba(255,255,255,.2),
+        550px 350px 0 0 rgba(255,255,255,.1),
+        150px 600px 0 0 rgba(255,255,255,.2),
+        700px 50px 0 0 rgba(255,255,255,.15);
+      animation: drift 90s linear infinite reverse;
+    }
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-30px); }
+    }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .nav-brand img {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+    }
+    .nav-brand span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(ellipse, rgba(0, 229, 255, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text { animation: fadeUp 0.8s ease-out; }
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .accent {
+      color: var(--cyan);
+      text-shadow: 0 0 30px var(--cyan-glow);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 440px;
+      font-weight: 300;
+    }
+    .hero-cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--bg-deep);
+      background: var(--cyan);
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .btn-primary:hover {
+      background: #33ecff;
+      box-shadow: 0 0 35px rgba(0, 229, 255, 0.4);
+      transform: translateY(-2px);
+    }
+    .btn-primary svg { width: 20px; height: 20px; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid rgba(138, 155, 181, 0.25);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover {
+      color: var(--text-primary);
+      border-color: rgba(138, 155, 181, 0.5);
+    }
+
+    /* Hero phone mockup */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      animation: fadeUp 0.8s ease-out 0.15s both;
+    }
+    .phone-frame {
+      position: relative;
+      width: 280px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 2px rgba(0, 229, 255, 0.15),
+        0 25px 60px rgba(0,0,0,0.6),
+        0 0 80px rgba(0, 229, 255, 0.08);
+    }
+    .phone-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Feature graphic banner ── */
+    .feature-banner {
+      padding: 0 2rem;
+      margin-bottom: 5rem;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+    .feature-banner-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+      border: 1px solid rgba(0, 229, 255, 0.1);
+    }
+    .feature-banner-inner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Screenshots ── */
+    .screenshots {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .section-label {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 3rem;
+    }
+    .screenshots-track-wrapper {
+      position: relative;
+      overflow: hidden;
+      margin: 0 -2rem;
+      padding: 1rem 0;
+    }
+    .screenshots-track {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshots-track::-webkit-scrollbar { display: none; }
+    .screenshot-card {
+      flex: 0 0 220px;
+      scroll-snap-align: center;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 229, 255, 0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .screenshot-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 20px var(--cyan-glow);
+    }
+    .screenshot-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Features grid ── */
+    .features {
+      padding: 5rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .features-head { text-align: center; margin-bottom: 3.5rem; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(74, 106, 138, 0.15);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(0, 229, 255, 0.2);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      background: rgba(0, 229, 255, 0.08);
+      color: var(--cyan);
+      margin-bottom: 1.25rem;
+      font-size: 1.3rem;
+    }
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+    .feature-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── About / Description ── */
+    .about {
+      padding: 5rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .about-text {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .about-text strong { color: var(--text-primary); font-weight: 500; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 5rem 2rem 6rem;
+      text-align: center;
+    }
+    .cta-box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.06), rgba(124, 77, 255, 0.04));
+      border: 1px solid rgba(0, 229, 255, 0.12);
+      border-radius: 20px;
+      padding: 3.5rem 2.5rem;
+    }
+    .cta-box .section-title { margin-bottom: 1rem; }
+    .cta-box p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      font-size: 1.05rem;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin: 0 auto 3rem;
+      opacity: 0.5;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid rgba(74, 106, 138, 0.12);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy {
+      color: rgba(138, 155, 181, 0.5);
+      font-size: 0.8rem;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+      .hero-sub { max-width: none; margin-left: auto; margin-right: auto; }
+      .hero-cta-row { justify-content: center; }
+      .phone-frame { width: 220px; }
+      .hero-visual { order: -1; }
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .screenshot-card { flex: 0 0 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-stars"></div>
+
+<div class="content-wrap">
+
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="/" class="nav-brand">
+      <img src="img/icon_512.png" alt="SteelGrid" loading="lazy">
+      <span>SteelGrid</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="#download" class="btn-primary" style="padding: 0.55rem 1.2rem; font-size: 0.85rem;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+        Google Play
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">Free Block Puzzle</div>
+        <h1 class="hero-title">
+          Drop blocks.<br>
+          Clear lines.<br>
+          <span class="accent">Score big.</span>
+        </h1>
+        <p class="hero-sub">
+          A sleek, satisfying block puzzle wrapped in a sharp metallic style. Simple rules, endless challenge.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#download" class="btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+            Get on Google Play
+          </a>
+          <a href="#screenshots" class="btn-secondary">See gameplay ↓</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-frame">
+          <img src="img/01_gameplay.jpg" alt="SteelGrid gameplay" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Graphic Banner -->
+  <div class="feature-banner reveal">
+    <div class="feature-banner-inner">
+      <img src="img/steelgrid_feature_graphic.jpg" alt="SteelGrid — Block Puzzle Game">
+    </div>
+  </div>
+
+  <!-- Screenshots -->
+  <section class="screenshots reveal" id="screenshots">
+    <div class="section-label">Gameplay</div>
+    <h2 class="section-title">See it in action</h2>
+    <div class="screenshots-track-wrapper">
+      <div class="screenshots-track">
+        <div class="screenshot-card"><img src="img/05_easy.jpg" alt="Easy to learn" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/01_gameplay.jpg" alt="Colorful blocks" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/02_streak.jpg" alt="Build streaks" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/03_neon.jpg" alt="Neon theme" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/04_blue.jpg" alt="Blue theme" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/06_nomoves.jpg" alt="Challenge yourself" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/07_themes.jpg" alt="Customize themes" loading="lazy"></div>
+        <div class="screenshot-card"><img src="img/08_achievements.jpg" alt="40 Achievements" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features reveal" id="features">
+    <div class="features-head">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">What makes SteelGrid different</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">♟</div>
+        <h3>Strategic depth</h3>
+        <p>Every piece matters. One wrong placement can fill your board — one smart move can clear multiple lines at once.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⏱</div>
+        <h3>Two game modes</h3>
+        <p>Classic mode for calm, pressure-free sessions. Timed mode when you want to test your speed and push for a high score.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Themes & skins</h3>
+        <p>Unlock new backgrounds, block styles, and grid skins as you play. Make the game truly yours.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>40 achievements</h3>
+        <p>Track your progress and collect milestones. From first combo to total annihilation — can you earn them all?</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📶</div>
+        <h3>Fully offline</h3>
+        <p>No internet needed. Play on the bus, on a plane, or anywhere. Your progress is saved locally.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>8 languages</h3>
+        <p>Available in English, Czech, German, French, Spanish, Portuguese, Italian, and Polish.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about reveal">
+    <div class="divider"></div>
+    <p class="about-text">
+      <strong>SteelGrid</strong> rewards careful planning over fast tapping.
+      Place pieces on the grid, complete full lines and columns, and watch them shatter in a burst of light.
+      Whether you have five minutes or fifty, SteelGrid fits your pace.
+      No pay-to-win mechanics — just <strong>pure puzzle gameplay</strong>.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal" id="download">
+    <div class="cta-box">
+      <div class="section-label">Download</div>
+      <h2 class="section-title">Simple to learn. Hard to master.</h2>
+      <p>How long can you last? Download SteelGrid and find out.</p>
+      <a href="#" class="btn-primary" id="play-store-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+        Get on Google Play
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="mailto:exbloxstudio@gmail.com">Contact</a>
+        <a href="/">Exblox Studio</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Exblox Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Navbar scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
