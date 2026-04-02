@@ -117,7 +117,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px; height: 28px;
+      min-width: 28px; height: 28px;
+      padding: 0 6px;
       border-radius: 6px;
       background: rgba(0, 229, 255, 0.08);
       border: 1px solid rgba(0, 229, 255, 0.15);
@@ -193,7 +194,7 @@
   <div class="policy-wrap">
     <div class="policy-header">
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: <strong>March 19, 2026</strong></p>
+      <p class="updated">Last updated: <strong>April 2, 2026</strong></p>
     </div>
 
     <p class="policy-intro">
@@ -202,7 +203,7 @@
 
     <div class="policy-section">
       <h2><span class="num">1</span> Data We Collect</h2>
-      <p>We do not directly collect or store any personal data. However, our app uses third-party services that may collect data as described below.</p>
+      <p>We collect anonymous, non-personal usage data to improve the game experience, as described below. We do not collect names, email addresses, or any data that could directly identify you. Our app also uses third-party services that may collect data independently.</p>
     </div>
 
     <div class="policy-section">
@@ -211,7 +212,7 @@
     </div>
 
     <div class="policy-section">
-      <h2><span class="num">3</span> Analytics (TelemetryDeck)</h2>
+      <h2><span class="num">3a</span> Analytics (TelemetryDeck)</h2>
       <p>We use TelemetryDeck to collect anonymous gameplay and usage data to help us improve the game experience. TelemetryDeck may collect the following information:</p>
       <ul>
         <li>Device information (device model, screen resolution, architecture, platform)</li>
@@ -229,6 +230,23 @@
     </div>
 
     <div class="policy-section">
+      <h2><span class="num">3b</span> Analytics (Exblox Telemetry)</h2>
+      <p>Starting from version 1.8.1, we also collect anonymous gameplay and usage data using our own secure analytics backend to help us improve the game experience. The following information may be collected:</p>
+      <ul>
+        <li>Device information (device model, screen resolution, architecture, platform)</li>
+        <li>Operating system version</li>
+        <li>App version and build type</li>
+        <li>Language and locale settings (derived from system settings, not GPS)</li>
+        <li>Session data (session start, session end, session duration)</li>
+        <li>Retention metrics (number of days the app was used, total session count)</li>
+        <li>Gameplay events (game start, game end, score, actions taken in-game)</li>
+        <li>Error reports (error type and category, no personal data included)</li>
+        <li>Ad interaction events (ad impressions, consent status)</li>
+      </ul>
+      <p>To identify unique devices, a randomly generated anonymous identifier is created and stored locally on your device. This identifier is hashed before being stored on our servers and cannot be used to personally identify you. All collected data is anonymized and transmitted securely via HTTPS. Data is stored on our own servers and is not shared with third parties.</p>
+    </div>
+
+    <div class="policy-section">
       <h2><span class="num">4</span> Consent (GDPR)</h2>
       <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, you will be asked for your consent before personalized ads are shown. You can change your consent at any time in the app settings.</p>
     </div>
@@ -236,6 +254,7 @@
     <div class="policy-section">
       <h2><span class="num">5</span> Data Retention</h2>
       <p>Game progress and settings are stored locally on your device only. We do not have access to this data.</p>
+      <p>Anonymous analytics data collected via Exblox Telemetry (section 3b) is stored on our secure servers for as long as necessary to fulfill the purposes described in this policy. Analytics data collected by TelemetryDeck (section 3a) is subject to their own retention policy.</p>
     </div>
 
     <div class="policy-section">
