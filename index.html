@@ -270,6 +270,32 @@
     }
     .contact a:hover { border-color: var(--cyan); }
 
+    /* ── Social links ── */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(122,141,181,0.15);
+      color: var(--text-secondary);
+      transition: all 0.25s;
+    }
+    .social-links a svg { width: 16px; height: 16px; fill: currentColor; }
+    .social-links a:hover {
+      color: var(--cyan);
+      border-color: rgba(0,229,255,0.3);
+      background: rgba(0,229,255,0.06);
+      box-shadow: 0 0 14px rgba(0,229,255,0.12);
+    }
+
     .footer-copy {
       margin-top: 0.9rem;
       color: rgba(122, 141, 181, 0.35);
@@ -337,6 +363,16 @@
     </div>
 
     <p class="contact">Questions? <a href="mailto:exbloxstudio@gmail.com">exbloxstudio@gmail.com</a></p>
+
+    <div class="social-links">
+      <a href="https://www.youtube.com/@ExbloxStudio" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=61572357562513" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+      </a>
+    </div>
+
     <p class="footer-copy">&copy; 2026 Exblox Studio</p>
   </div>
 
