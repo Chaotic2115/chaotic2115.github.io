@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy – SteelGrid: Collection</title>
+  <meta name="description" content="Privacy Policy for SteelGrid: Collection by Exblox Studio.">
+  <link rel="icon" type="image/png" href="img/icon_512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep:    #07080f;
+      --bg-surface: #0d1220;
+      --bg-card:    #111827;
+      --purple:       #7c4dff;
+      --purple-light: #a480ff;
+      --cyan:         #00e5ff;
+      --cyan-dim:     #00b8d4;
+      --cyan-glow:    rgba(0, 229, 255, 0.22);
+      --steel:        #4a6a8a;
+      --text-primary:   #e8f0ff;
+      --text-secondary: #7a8db5;
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body:    'Exo 2', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 90% 5%,  rgba(124,77,255,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 8%  90%, rgba(0,229,255,0.07) 0%, transparent 55%);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    nav {
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(124,77,255,0.1);
+      background: rgba(7,8,15,0.95);
+      backdrop-filter: blur(12px);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none; color: var(--text-primary);
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-brand span {
+      font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    nav a.back {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.88rem; transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--cyan); }
+
+    /* Content */
+    .policy-wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .policy-header {
+      margin-bottom: 2.5rem; padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(124,77,255,0.12);
+    }
+    .policy-header h1 {
+      font-family: var(--font-display); font-size: 2rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .policy-header .updated {
+      color: var(--text-secondary); font-size: 0.9rem; font-weight: 300;
+    }
+    .policy-header .updated strong { color: var(--cyan); font-weight: 500; }
+
+    .policy-intro {
+      color: var(--text-secondary); font-size: 1rem;
+      line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300;
+    }
+
+    .policy-section { margin-bottom: 2.5rem; }
+    .policy-section h2 {
+      font-family: var(--font-display); font-size: 1.15rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--cyan); margin-bottom: 0.85rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .policy-section h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 28px; height: 28px; padding: 0 6px;
+      border-radius: 6px;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.15);
+      font-size: 0.78rem; color: var(--cyan);
+    }
+    .policy-section p, .policy-section li {
+      color: var(--text-secondary); font-size: 0.95rem;
+      line-height: 1.75; font-weight: 300;
+    }
+    .policy-section p { margin-bottom: 0.75rem; }
+    .policy-section ul { list-style: none; margin: 0.75rem 0; }
+    .policy-section li {
+      padding: 0.3rem 0 0.3rem 1.5rem; position: relative;
+    }
+    .policy-section li::before {
+      content: ''; position: absolute; left: 0; top: 0.75rem;
+      width: 6px; height: 6px; border-radius: 2px;
+      background: var(--steel);
+    }
+    .policy-section a {
+      color: var(--cyan-dim); text-decoration: none;
+      border-bottom: 1px solid rgba(0,184,212,0.3); transition: border-color 0.2s;
+    }
+    .policy-section a:hover { border-color: var(--cyan); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(124,77,255,0.1);
+      padding: 2rem; text-align: center;
+    }
+    .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.84rem; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy { color: rgba(122,141,181,0.35); font-size: 0.78rem; margin-top: 1rem; }
+
+    @media (max-width: 600px) {
+      .policy-wrap { padding: 2rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./" class="nav-brand">
+      <img src="img/icon_512.png" alt="SteelGrid: Collection">
+      <span>SteelGrid: Collection</span>
+    </a>
+    <a href="./" class="back">← Back to game</a>
+  </nav>
+
+  <div class="policy-wrap">
+    <div class="policy-header">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: <strong>May 8, 2026</strong></p>
+    </div>
+
+    <p class="policy-intro">
+      SteelGrid: Collection is a free mobile puzzle game developed by Exblox Studio. This Privacy Policy explains how we handle information when you use our app. We are committed to protecting your privacy — we do not collect any data that could personally identify you.
+    </p>
+
+    <!-- 1. Data We Collect -->
+    <div class="policy-section">
+      <h2><span class="num">1</span> Data We Collect</h2>
+      <p>We collect anonymous, non-personal usage data to improve the game experience. We do not collect names, email addresses, precise location, or any other data that could directly identify you. Our app also uses third-party services that may collect data independently, as described in the sections below.</p>
+      <p>Game progress and settings are stored locally on your device only. We do not have access to this locally stored data.</p>
+    </div>
+
+    <!-- 2. Advertising -->
+    <div class="policy-section">
+      <h2><span class="num">2</span> Advertising (Google AdMob)</h2>
+      <p>We use Google AdMob to display advertisements, including banner ads, interstitial ads, and rewarded video ads. Before any ads are shown, you will be asked for your consent through the Google UMP (User Messaging Platform) consent flow. AdMob may collect device identifiers, IP address, and usage data to serve personalized or non-personalized ads depending on your consent choice.</p>
+      <p>You can review or change your consent at any time in the app settings under "Manage Privacy".</p>
+      <p>For more information, see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+    </div>
+
+    <!-- 3. Analytics -->
+    <div class="policy-section">
+      <h2><span class="num">3</span> Analytics (Exblox Telemetry)</h2>
+      <p>We collect anonymous gameplay and usage data using our own secure analytics backend (Exblox Telemetry) to help us understand how the game is played and to improve the experience. The following information may be collected:</p>
+      <ul>
+        <li>Device information (device model, screen resolution, architecture, platform)</li>
+        <li>Operating system version</li>
+        <li>App version and build type</li>
+        <li>Language and locale settings (derived from system settings, not GPS)</li>
+        <li>Session data (session start, session end, session duration)</li>
+        <li>Retention metrics (number of days the app was used, total session count)</li>
+        <li>Gameplay events (game start, game end, score, mode, actions taken in-game)</li>
+        <li>Error reports (error type and category — no personal data included)</li>
+        <li>Ad interaction events (ad impressions, consent status)</li>
+        <li>Daily Challenge events (challenge started, completed, streak length)</li>
+      </ul>
+      <p>To identify unique devices, a randomly generated anonymous identifier is created and stored locally on your device. This identifier is hashed before being stored on our servers and cannot be used to personally identify you. All collected data is anonymized and transmitted securely via HTTPS. Data is stored on our own servers and is not shared with third parties.</p>
+    </div>
+
+    <!-- 4. Google Play Games Services -->
+    <div class="policy-section">
+      <h2><span class="num">4</span> Google Play Games Services</h2>
+      <p>SteelGrid: Collection integrates Google Play Games Services (GPGS), which is an optional feature. You are not required to sign in to play the game.</p>
+      <p>If you choose to sign in with your Google account, the following features become available:</p>
+      <ul>
+        <li><strong>Cloud Save:</strong> Your game progress (scores, statistics, settings, daily challenge streak) is backed up to Google's servers via GPGS Snapshots. This allows you to restore your progress on a new device. Cloud save data is associated with your Google account.</li>
+        <li><strong>Achievements:</strong> In-game achievements are synced to your Google Play Games profile.</li>
+      </ul>
+      <p>Sign-in is voluntary and can be initiated from the app settings. If you do not sign in, cloud save and achievement syncing are disabled and no data is sent to Google Play Games Services beyond what Google Play Services itself may collect in the background.</p>
+      <p>For more information on how Google handles this data, see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> and the <a href="https://play.google.com/about/developer-content-policy/" target="_blank" rel="noopener">Google Play Developer Policy</a>.</p>
+    </div>
+
+    <!-- 5. Local Notifications -->
+    <div class="policy-section">
+      <h2><span class="num">5</span> Local Notifications</h2>
+      <p>SteelGrid: Collection may send local push notifications on Android to remind you about the Daily Challenge. These notifications are scheduled entirely on your device — no notification servers or external services are involved, and no personal data is transmitted.</p>
+      <p>On Android 13 and above, you will be asked for permission before any notifications are sent. You can enable or disable notifications at any time in the app settings or through your device's system notification settings.</p>
+    </div>
+
+    <!-- 6. Consent (GDPR) -->
+    <div class="policy-section">
+      <h2><span class="num">6</span> Consent (GDPR)</h2>
+      <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, you will be presented with a consent screen before personalized ads are shown, as required by GDPR. You can choose to accept personalized ads, accept only non-personalized ads, or decline.</p>
+      <p>You can review or withdraw your consent at any time by visiting the app settings and selecting "Manage Privacy".</p>
+    </div>
+
+    <!-- 7. Data Retention -->
+    <div class="policy-section">
+      <h2><span class="num">7</span> Data Retention</h2>
+      <p>Game progress and settings stored locally on your device remain there until you uninstall the app or delete game data through the app settings.</p>
+      <p>If you use Google Play Games cloud save, your backup data is stored by Google and subject to their retention policies. You can delete your cloud save data at any time from within the app (Settings → Delete All Data).</p>
+      <p>Anonymous analytics data collected via Exblox Telemetry (section 3) is stored on our secure servers for as long as necessary to fulfill the purposes described in this policy. You may request deletion of analytics data associated with your anonymous device identifier by contacting us at the address below.</p>
+    </div>
+
+    <!-- 8. Children's Privacy -->
+    <div class="policy-section">
+      <h2><span class="num">8</span> Children's Privacy</h2>
+      <p>SteelGrid: Collection is not specifically directed at children. While the game content is suitable for all ages (PEGI 3), the app is not designed, marketed, or intended for use by children under the age of 13.</p>
+      <p>We do not knowingly collect personal information from children under 13 (as defined by COPPA) or under 16 (as defined by GDPR) without verifiable parental consent. If we become aware that we have inadvertently collected personal data from a child without appropriate consent, we will take steps to delete that information promptly.</p>
+      <p>Advertising is served based on the user's consent status. Parents and guardians are encouraged to supervise their children's use of the app and to contact us if they have any concerns.</p>
+    </div>
+
+    <!-- 9. Permissions -->
+    <div class="policy-section">
+      <h2><span class="num">9</span> App Permissions</h2>
+      <p>SteelGrid: Collection requests only the minimum permissions required:</p>
+      <ul>
+        <li><strong>INTERNET</strong> — required for advertisements, analytics, and optional cloud save</li>
+        <li><strong>POST_NOTIFICATIONS</strong> — required to send local daily challenge reminders (Android 13+); requested only once and only if you have not previously responded</li>
+      </ul>
+      <p>We do not request access to your camera, microphone, contacts, location, or file storage.</p>
+    </div>
+
+    <!-- 10. Changes -->
+    <div class="policy-section">
+      <h2><span class="num">10</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of the app after any changes constitutes your acceptance of the updated policy.</p>
+    </div>
+
+    <!-- 11. Contact -->
+    <div class="policy-section">
+      <h2><span class="num">11</span> Contact</h2>
+      <p>If you have any questions about this Privacy Policy or wish to request deletion of your data, please contact us at: <a href="mailto:exbloxstudio@gmail.com">exbloxstudio@gmail.com</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="./">SteelGrid: Collection</a>
+      <a href="../steelgrid/">SteelGrid</a>
+      <a href="mailto:exbloxstudio@gmail.com">Contact</a>
+      <a href="/">Exblox Studio</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Exblox Studio. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
